@@ -1,5 +1,5 @@
 # TamperETW
-## A proof of concept to demonstrate how CLR ETW events can be filtered/tampered.
+## A proof of concept to demonstrate how CLR ETW events can be filtered/tampered
 
 MDSec's Adam Chester (@\_xpn\_) recently [published a great blog](https://www.mdsec.co.uk/2020/03/hiding-your-net-etw/) on how Red Teams can hide the loading of .NET assemblies by disabling .NET ETW telemetry. In his blog he included proof of concept code which demonstrates how to dismantle ETW telemetry by patching the native EtwEventWrite function.
 
