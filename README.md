@@ -17,5 +17,5 @@ When the MessageBox pops up, use Process Explorer or Process Hacker to watch the
 ```
 
 ## Credits
-PoC Author: Cornelis de Plaa ([@Cneelis](https://twitter.com/Cneelis)) / Outflank
+PoC Author: Cornelis de Plaa ([@Cneelis](https://twitter.com/Cneelis)) / Outflank, 
 Based on research from: Adam Chester ([@\_xpn\_](https://twitter.com/_xpn_)) / MDSec
