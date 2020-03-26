@@ -3,7 +3,12 @@
 #undef  UNICODE
 #define UNICODE
 
+// https://docs.microsoft.com/en-us/dotnet/framework/performance/etw-events-in-the-common-language-runtime
+#define ModuleLoad_V2 152
 #define AssemblyDCStart_V1 155
+#define MethodLoadVerbose_V1 143
+#define MethodJittingStarted 145
+#define ILStubGenerated 88
 
 #include <Windows.h>
 #include <stdio.h>
@@ -34,13 +39,20 @@ ULONG NTAPI MyEtwEventWrite(
 		return 1;
 	}
 
-	// Block CLR assembly loading events.
-	if (EventDescriptor->Id == AssemblyDCStart_V1) {
-		return uResult;
+	switch (EventDescriptor->Id) {
+	case AssemblyDCStart_V1:
+		// Block CLR assembly loading events.
+		break;
+	case MethodLoadVerbose_V1:
+		// Block CLR method loading events.
+		break;
+	case ILStubGenerated:
+		// Block MSIL stub generation events.
+		break;
+	default:
+		// Forward all other ETW events using EtwEventWriteFull.
+		uResult = EtwEventWriteFull(RegHandle, EventDescriptor, 0, NULL, NULL, UserDataCount, UserData);
 	}
-
-	// Forward all other ETW events using EtwEventWriteFull.
-	uResult = EtwEventWriteFull(RegHandle, EventDescriptor, 0, NULL, NULL, UserDataCount, UserData);
 
 	return uResult;
 }
