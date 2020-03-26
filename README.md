@@ -5,7 +5,7 @@ MDSec's Adam Chester (@\_xpn\_) recently [published a great blog](https://www.md
 
 Based on his research, I wrote an x64 version / proof of concept that uses native system calls to place an inline hook on the EtwEventWrite function.
 
-By hooking EtwEventWrite and redirecting the program flow to our custom MyEtwEventWrite function, we can intercept the function arguments and inspect or change the data (EVENT_DESCRIPTOR and EVENT_DATA_DESCRIPTOR data structures). We then use the native EtwEventWriteFull function to selectively forward .NET ETW events. In this PoC we only block ETW from sending assembly (CLR) loading events (AssemblyDCStart_V1), but with a bit more work it should be possible to spoof the assembly names before being submitted with EtwEventWriteFull.
+By hooking EtwEventWrite and redirecting the program flow to our custom MyEtwEventWrite function, we can intercept the function arguments and inspect or change the data (EVENT_DESCRIPTOR and EVENT_DATA_DESCRIPTOR data structures). We then use the native EtwEventWriteFull function to selectively forward .NET ETW events. In this PoC we block a few ETW (CLR) event from being send, for example assembly loading events (AssemblyDCStart_V1), but with a bit more work it should be possible to spoof the assembly names before being submitted with EtwEventWriteFull.
 
 ![alt text](https://github.com/outflanknl/TamperETW/raw/master/TamperETW.png "Proof of Concept")
 
